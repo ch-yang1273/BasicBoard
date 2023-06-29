@@ -1,5 +1,12 @@
 package study.board.post.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+
+@AllArgsConstructor
+@Getter
 public class Post {
 
     private Long id;
@@ -12,4 +19,7 @@ public class Post {
 
     private int viewCount;
     private boolean isDeleted;
+
+    private LocalDateTime createTime;
+    private LocalDateTime modifiedTime;
 }

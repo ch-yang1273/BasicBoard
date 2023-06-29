@@ -58,3 +58,18 @@ classDiagram
     Comment "1" <-- "0..*" Comment
 
 ```
+
+## 테이블 생성
+
+### Account
+<details>
+CREATE TABLE account (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    nickname VARCHAR(255),
+    role VARCHAR(255),
+    create_time TIMESTAMP,
+    modified_time TIMESTAMP
+);
+</details>
