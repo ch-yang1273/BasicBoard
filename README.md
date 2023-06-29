@@ -5,52 +5,46 @@
 ```mermaid
 classDiagram
     class Account {
-        +Long id
-        +String email
-        +String password
-        +String nickname
-        +AccountRole role
-    }
-
-    class AccountRole {
-        +Long id
-        +String name
-        +String description
+        -Long id
+        -String email
+        -String password
+        -String nickname
+        -AccountRole role
     }
 
     class Post {
-        +Long id
-        +String title
-        +Account author
-        +Board board
-        +PostContent content
-        +int viewCount
-        +boolean isDeleted
+        -Long id
+        -String title
+        -Account author
+        -Board board
+        -PostContent content
+        -int viewCount
+        -boolean isDeleted
     }
 
     class PostContent {
-        +Long id
-        +String content
+        -Long id
+        -String content
     }
 
     class Board {
-        +Long id
-        +String name
+        -Long id
+        -String name
     }
 
     class Comment {
-        +Long id
-        +Post post
-        +Comment parentComment
-        +Account author
-        +String content
-        +boolean isDeleted
+        -Long id
+        -Post post
+        -Comment parentComment
+        -Account author
+        -String content
+        -boolean isDeleted
     }
 
     class PostLike {
-        +Long id
-        +Post post
-        +Account liker
+        -Long id
+        -Post post
+        -Account liker
     }
 
     Account "1" <-- "0..*" Post
