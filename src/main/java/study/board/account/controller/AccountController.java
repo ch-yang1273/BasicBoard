@@ -11,7 +11,7 @@ import study.board.account.service.AccountService;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/account")
+@RequestMapping("/api/v1/account")
 @RestController
 public class AccountController {
 
