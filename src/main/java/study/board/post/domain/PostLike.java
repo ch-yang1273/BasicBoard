@@ -1,4 +1,4 @@
-package study.board.postlike.domain;
+package study.board.post.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class PostLike {
 
     private Long id;
-    private Long postId;
+    private Long postId; // post fk
     private Long likerId; // Account fk
 
     private LocalDateTime createTime;
