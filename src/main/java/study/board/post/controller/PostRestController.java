@@ -18,7 +18,7 @@ public class PostRestController {
 
     private final PostService postService;
 
-    @GetMapping("/boardName")
+    @GetMapping("/{boardName}")
     public ResponseEntity<List<PostTitleResp>> getPostList(@PathVariable String boardName) {
         return ResponseEntity.ok().body(postService.getPostList(boardName));
     }
