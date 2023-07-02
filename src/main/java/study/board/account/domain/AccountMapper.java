@@ -1,14 +1,13 @@
-package study.board.account.repository;
+package study.board.account.domain;
 
 import org.apache.ibatis.annotations.Mapper;
-import study.board.account.domain.Account;
 
 import java.util.Optional;
 
 @Mapper
 public interface AccountMapper {
 
-    Long save(Account account);
+    void save(Account account);
 
     Optional<Account> findById(Long id);
 }

@@ -3,7 +3,7 @@ package study.board.account.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.board.account.dto.SignupReq;
-import study.board.account.repository.AccountMapper;
+import study.board.account.domain.AccountMapper;
 
 @RequiredArgsConstructor
 @Service

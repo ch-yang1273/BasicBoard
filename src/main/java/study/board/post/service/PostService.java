@@ -4,9 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.board.account.domain.Account;
+import study.board.account.domain.AccountMapper;
+import study.board.post.domain.Post;
+import study.board.post.domain.PostContent;
+import study.board.post.domain.PostContentMapper;
+import study.board.post.domain.PostMapper;
 import study.board.post.dto.PostTitleResp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -14,21 +21,41 @@ import java.util.List;
 @Service
 public class PostService {
 
+    private final AccountMapper accountMapper;
+    private final PostMapper postMapper;
+    private final PostContentMapper postContentMapper;
+
     @Transactional(readOnly = true)
     public List<PostTitleResp> getPostList(String boardName) {
-        PostTitleResp resp = PostTitleResp.builder()
-                .title("title")
-                .contentId(1L)
-                .authorName("author")
-                .postCreateTime(LocalDateTime.now())
-                .likeCount(10L)
-                .build();
-        return List.of(resp);
+        List<Post> postList = postMapper.findAll();
+
+        List<PostTitleResp> resultList = new ArrayList<>();
+        for (Post post : postList) {
+            Account account = accountMapper.findById(post.getAuthorId()).orElseThrow();
+            resultList.add(PostTitleResp.of(post, account.getNickname(), 10L));
+        }
+
+        return resultList;
     }
 
     @Transactional
     public void savePost(String board, String title, String contents) {
-        log.info("board={}", board);
-        log.info("title={}", title);
+
+        // PostContent 저장
+        PostContent postContent = new PostContent(contents);
+        postContentMapper.save(postContent);
+
+        // Post 저장
+        Post post = Post.builder()
+                .title(title)
+                .contentId(postContent.getId())
+                .authorId(1L)
+                .boardId(1L)
+                .createTime(LocalDateTime.now())
+                .build();
+        postMapper.save(post);
+
+        log.info("Save Post. id={}", post.getId());
+        log.info("Save PostContent. id={}", postContent.getId());
     }
 }

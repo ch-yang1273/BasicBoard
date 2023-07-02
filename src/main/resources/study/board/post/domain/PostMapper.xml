@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.board.post.domain.PostMapper">
+    <insert id="save" parameterType="study.board.post.domain.Post" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO post (title, content_id, author_id, board_id, view_count, is_deleted, create_time, modified_time)
+        VALUES (#{title}, #{contentId}, #{authorId}, #{boardId}, #{viewCount}, #{isDeleted}, #{createTime}, #{modifiedTime})
+    </insert>
+
+    <resultMap id="PostResult" type="study.board.post.domain.Post">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="contentId" column="content_id" />
+        <result property="authorId" column="author_id" />
+        <result property="boardId" column="board_id" />
+        <result property="viewCount" column="view_count" />
+        <result property="isDeleted" column="is_deleted" />
+        <result property="createTime" column="create_time" />
+        <result property="modifiedTime" column="modified_time" />
+    </resultMap>
+
+    <select id="findById" resultMap="PostResult">
+        SELECT * FROM post WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="PostResult">
+        SELECT * FROM post
+    </select>
+</mapper>

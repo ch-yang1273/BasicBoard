@@ -9,4 +9,8 @@ public class PostContent {
 
     private Long id;
     private String content;
+
+    public PostContent(String content) {
+        this.content = content;
+    }
 }

@@ -3,6 +3,7 @@ package study.board.post.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.board.post.domain.Post;
 
 import java.time.LocalDateTime;
 
@@ -10,18 +11,28 @@ import java.time.LocalDateTime;
 @Getter
 public class PostTitleResp {
 
+    private Long postId;
     private String title;
-    private Long contentId; // PostContent fk
     private String authorName;
     private LocalDateTime postCreateTime;
     private Long likeCount;
 
     @Builder
-    public PostTitleResp(String title, Long contentId, String authorName, LocalDateTime postCreateTime, Long likeCount) {
+    public PostTitleResp(Long postId, String title, String authorName, LocalDateTime postCreateTime, Long likeCount) {
+        this.postId = postId;
         this.title = title;
-        this.contentId = contentId;
         this.authorName = authorName;
         this.postCreateTime = postCreateTime;
         this.likeCount = likeCount;
+    }
+
+    public static PostTitleResp of(Post post, String authorName, Long likeCount) {
+        return PostTitleResp.builder()
+                .postId(post.getId())
+                .title(post.getTitle())
+                .authorName(authorName)
+                .postCreateTime(post.getCreateTime())
+                .likeCount(likeCount)
+                .build();
     }
 }

@@ -85,7 +85,7 @@ CREATE TABLE account (
 
 ```sql
 CREATE TABLE post (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255),
     content_id BIGINT,
     author_id BIGINT,
@@ -105,7 +105,7 @@ CREATE TABLE post (
 
 ```sql
 CREATE TABLE post_content (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     content VARCHAR(1000)
 );
 ```
@@ -118,7 +118,7 @@ CREATE TABLE post_content (
 
 ```sql
 CREATE TABLE post_like (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     post_id BIGINT,
     liker_id BIGINT,
     create_time TIMESTAMP,
@@ -135,7 +135,7 @@ CREATE TABLE post_like (
 
 ```sql
 CREATE TABLE board (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
     create_time TIMESTAMP,
     modified_time TIMESTAMP
@@ -150,7 +150,7 @@ CREATE TABLE board (
 
 ```sql
 CREATE TABLE comment (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     content TEXT,
     post_id BIGINT,
     author_id BIGINT,
