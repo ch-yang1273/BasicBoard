@@ -10,7 +10,7 @@ $(function () {
                 $.each(data, function (index, item) {
                     const row = $('<tr></tr>');
                     const date = new Date(item.postCreateTime)
-                    row.append('<td>' + item.title + '</td>');
+                    row.append('<td class="text-start">' + item.title + '</td>');
                     row.append('<td>' + item.authorName + '</td>');
                     row.append('<td>' + date.toLocaleDateString() + '</td>');
                     row.append('<td>' + item.likeCount + '</td>');

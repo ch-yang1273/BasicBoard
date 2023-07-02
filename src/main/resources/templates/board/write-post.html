@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+      th:replace="~{layout/main :: layout(~{::section}, ~{::script})}">
+<head>
+  <title>Basic Board</title>
+</head>
+<body>
+<section th:data-board="${board}">
+  <div class="row">
+    <h2 th:text="${board}">Board name</h2>
+  </div>
+  <div class="row my-4">
+    <h4>제목</h4>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="title" placeholder="Leave a title">
+      <label for="title" class="mx-2">제목을 입력해주세요</label>
+    </div>
+    <h4 class="mt-3">내용</h4>
+    <div class="form-floating">
+      <textarea class="form-control" id="contents" placeholder="Leave a comment"></textarea>
+      <label for="contents" class="mx-2">내용을 입력해주세요</label>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button type="button" class="col-1 btn btn-primary" id="submit-post">제출</button>
+  </div>
+</section>
+<script th:src="@{/js/submit-post.js}" src="/js/submit-post.js"></script>
+</body>
+</html>
