@@ -129,6 +129,8 @@ CREATE TABLE post_like (
 
 </details>
 
+### Board
+
 <details>
 
 ```sql
@@ -141,6 +143,8 @@ CREATE TABLE board (
 ```
 
 </details>
+
+### Comment
 
 <details>
 
