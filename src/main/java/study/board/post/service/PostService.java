@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.account.domain.Account;
+import study.board.account.domain.AccountFinder;
 import study.board.account.domain.AccountMapper;
 import study.board.post.domain.Post;
 import study.board.post.domain.PostContent;
@@ -21,18 +22,19 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private final AccountMapper accountMapper;
+    private final AccountFinder accountFinder;
     private final PostMapper postMapper;
     private final PostContentMapper postContentMapper;
 
     @Transactional(readOnly = true)
     public List<PostTitleResp> getPostList(String boardName) {
+        log.info("getPostList ={}", boardName);
         List<Post> postList = postMapper.findAll();
 
         List<PostTitleResp> resultList = new ArrayList<>();
         for (Post post : postList) {
-            Account account = accountMapper.findById(post.getAuthorId()).orElseThrow();
-            resultList.add(PostTitleResp.of(post, account.getNickname(), 10L));
+            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getId());
+            resultList.add(PostTitleResp.of(post, nickname, 10L));
         }
 
         return resultList;

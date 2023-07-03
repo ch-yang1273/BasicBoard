@@ -39,4 +39,10 @@ public class Account {
         this.createTime = LocalDateTime.now();
         this.modifiedTime = createTime;
     }
+
+    public static Account unknownAccount() {
+        return Account.builder()
+                .nickname("Unknown")
+                .build();
+    }
 }
