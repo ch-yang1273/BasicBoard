@@ -19,6 +19,10 @@
     </resultMap>
 
     <select id="findById" resultMap="AccountResult">
-        SELECT * FROM account WHERE id = #{id}
+        SELECT * FROM account a WHERE a.id = #{id}
+    </select>
+
+    <select id="findByEmail" resultMap="AccountResult">
+        SELECT * FROM account a WHERE a.email = #{email}
     </select>
 </mapper>

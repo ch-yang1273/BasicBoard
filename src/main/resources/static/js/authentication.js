@@ -22,4 +22,27 @@ $(function() {
             window.location.href = '/signup';
         })
     });
+
+    // login process
+    $('#btn-login-proc').click(function () {
+        console.log("btn-login-proc.click")
+        const email = $('#email').val();
+        const password = $('#password').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/login-proc',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email: email,
+                password: password
+            })
+        }).done(function() {
+            // redirect to the /login page.
+            window.location.href = '/';
+        }).fail(function() {
+            // redirect to the /signup page.
+            window.location.href = '/login?error=true';
+        })
+    });
 });
