@@ -2,11 +2,12 @@ package study.board.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.account.domain.AccountFinder;
 import study.board.account.dto.UserProfile;
+import study.board.board.domain.Board;
+import study.board.board.domain.BoardFinder;
 import study.board.post.domain.*;
 import study.board.post.dto.EntirePostResp;
 import study.board.post.dto.PostTitleResp;
@@ -20,15 +21,17 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private final AccountFinder accountFinder;
     private final PostMapper postMapper;
     private final PostContentMapper postContentMapper;
 
+    private final AccountFinder accountFinder;
     private final PostFinder postFinder;
     private final PostEditor postEditor;
+    private final BoardFinder boardFinder;
 
     @Transactional
-    public void savePost(UserProfile profile, String board, String title, String contents) {
+    public void savePost(UserProfile profile, String boardName, String title, String contents) {
+        Board board = boardFinder.findByName(boardName);
 
         // PostContent 저장
         PostContent postContent = new PostContent(contents);
@@ -39,19 +42,16 @@ public class PostService {
                 .title(title)
                 .contentId(postContent.getId())
                 .authorId(profile.getId())
-                .boardId(1L)
+                .boardId(board.getId())
                 .createTime(LocalDateTime.now())
                 .build();
         postMapper.save(post);
-
-        log.info("Save Post. id={}", post.getId());
-        log.info("Save PostContent. id={}", postContent.getId());
     }
 
     @Transactional(readOnly = true)
     public List<PostTitleResp> getPostList(String boardName) {
-        log.info("getPostList ={}", boardName);
-        List<Post> postList = postFinder.findPostList();
+        Board board = boardFinder.findByName(boardName);
+        List<Post> postList = postFinder.findListByBoardId(board.getId());
 
         List<PostTitleResp> resultList = new ArrayList<>();
         for (Post post : postList) {

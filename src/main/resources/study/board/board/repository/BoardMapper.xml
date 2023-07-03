@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.board.board.repository.BoardMapper">
+    <insert id="save" parameterType="study.board.board.domain.Board" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board (name, create_time, modified_time)
+        VALUES (#{name}, #{createTime}, #{modifiedTime})
+    </insert>
+
+    <select id="findAll">
+        SELECT * FROM BOARD B
+    </select>
+
+    <select id="findByName">
+        SELECT * FROM BOARD B
+        WHERE B.NAME = #{name}
+    </select>
+</mapper>

@@ -5,7 +5,7 @@
   <title>Basic Board</title>
 </head>
 <body>
-<section>
+<section th:data-board="${board}">
   <div class="row">
     <h2 th:text="${board}">Board name</h2>
   </div>
@@ -24,7 +24,7 @@
     </table>
   </div>
   <div class="row justify-content-end">
-    <a th:href="@{/board/write(board=${board})}" class="col-2 btn btn-primary">글쓰기</a>
+    <a th:href="@{/post/write(board=${board})}" class="col-2 btn btn-primary">글쓰기</a>
   </div>
 </section>
 <script th:src="@{/js/post-table.js}" src="/js/post-table.js"></script>

@@ -17,4 +17,6 @@ public interface PostMapper {
     Optional<Post> findById(Long id);
 
     List<Post> findAll();
+
+    List<Post> findListByBoardId(PostSelectByBoardId dto);
 }

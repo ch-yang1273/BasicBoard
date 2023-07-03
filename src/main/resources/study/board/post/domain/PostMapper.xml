@@ -30,6 +30,12 @@
         SELECT * FROM post
         WHERE IS_DELETED = false
     </select>
+    
+    <select id="findListByBoardId">
+        SELECT * FROM POST
+        WHERE BOARD_ID = #{boardId}
+        AND IS_DELETED = false
+    </select>
 
     <update id="edit">
         UPDATE post

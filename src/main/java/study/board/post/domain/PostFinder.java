@@ -19,8 +19,12 @@ public class PostFinder {
         );
     }
 
-    public List<Post> findPostList() {
+    public List<Post> findAllPostList() {
         return postMapper.findAll();
+    }
+
+    public List<Post> findListByBoardId(Long boardId) {
+        return postMapper.findListByBoardId(new PostSelectByBoardId(boardId));
     }
 
     public PostContent findPostContentById(Long id) {

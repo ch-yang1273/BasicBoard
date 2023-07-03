@@ -11,14 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BoardController {
 
     @GetMapping
-    public String getBoard1Page(Model model, @RequestParam("board") String boardName) {
+    public String getBoardPage(Model model, @RequestParam("board") String boardName) {
         model.addAttribute("board", boardName);
         return "/board/board";
-    }
-
-    @GetMapping("/write")
-    public String writeBoardPost(Model model, @RequestParam("board") String boardName) {
-        model.addAttribute("board", boardName);
-        return "/board/write-post";
     }
 }
