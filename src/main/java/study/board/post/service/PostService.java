@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.board.account.domain.Account;
 import study.board.account.domain.AccountFinder;
-import study.board.account.domain.AccountMapper;
+import study.board.account.dto.UserProfile;
 import study.board.post.domain.Post;
 import study.board.post.domain.PostContent;
 import study.board.post.domain.PostContentMapper;
@@ -33,7 +32,7 @@ public class PostService {
 
         List<PostTitleResp> resultList = new ArrayList<>();
         for (Post post : postList) {
-            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getId());
+            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
             resultList.add(PostTitleResp.of(post, nickname, 10L));
         }
 
@@ -41,7 +40,7 @@ public class PostService {
     }
 
     @Transactional
-    public void savePost(String board, String title, String contents) {
+    public void savePost(UserProfile profile, String board, String title, String contents) {
 
         // PostContent 저장
         PostContent postContent = new PostContent(contents);
@@ -51,7 +50,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(title)
                 .contentId(postContent.getId())
-                .authorId(1L)
+                .authorId(profile.getId())
                 .boardId(1L)
                 .createTime(LocalDateTime.now())
                 .build();
