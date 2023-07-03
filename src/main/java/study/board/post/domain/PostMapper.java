@@ -10,6 +10,10 @@ public interface PostMapper {
 
     void save(Post post);
 
+    void edit(EditPostDto dto);
+
+    void softDelete(DeletePostDto dto);
+
     Optional<Post> findById(Long id);
 
     List<Post> findAll();

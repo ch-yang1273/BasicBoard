@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import study.board.account.dto.UserProfile;
+import study.board.common.authentication.LoginUser;
 import study.board.post.dto.EntirePostResp;
 import study.board.post.service.PostService;
 
@@ -22,5 +24,14 @@ public class PostController {
         EntirePostResp entirePost = postService.getEntirePost(postId);
         model.addAttribute("post", entirePost);
         return "/post/post";
+    }
+
+    @GetMapping("/{postId}/edit")
+    public String editPost(Model model, @LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        postService.validatePostEditPermission(userProfile, postId);
+
+        EntirePostResp entirePost = postService.getEntirePost(postId);
+        model.addAttribute("post", entirePost);
+        return "/post/edit-post";
     }
 }

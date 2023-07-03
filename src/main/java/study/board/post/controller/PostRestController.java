@@ -25,8 +25,24 @@ public class PostRestController {
     }
 
     @PostMapping("/submit/{boardName}")
-    public ResponseEntity<Void> submitPost(@LoginUser UserProfile userProfile, @PathVariable String boardName, @RequestBody SubmitPostReq dto) {
-        postService.savePost(userProfile, boardName, dto.getTitle(), dto.getContents());
+    public ResponseEntity<Void> submitPost(@LoginUser UserProfile userProfile,
+                                           @PathVariable String boardName,
+                                           @RequestBody SubmitPostReq dto) {
+        postService.savePost(userProfile, boardName, dto.getTitle(), dto.getContent());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/edit/{postId}")
+    public ResponseEntity<Void> editPost(@LoginUser UserProfile userProfile,
+                                         @PathVariable Long postId,
+                                         @RequestBody SubmitPostReq dto) {
+        postService.editPost(userProfile, postId, dto.getTitle(), dto.getContent());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/delete/{postId}")
+    public ResponseEntity<Void> deletePost(@LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        postService.softDelete(userProfile, postId);
         return ResponseEntity.ok().build();
     }
 

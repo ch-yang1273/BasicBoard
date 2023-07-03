@@ -5,7 +5,7 @@
   <title>Basic Board</title>
 </head>
 <body>
-<section>
+<section th:data-post="${post.getPostInfo().getPostId()}">
   <!-- title -->
   <div class="row">
     <h3 th:text="${post.getPostInfo().getTitle()}">제목</h3>
@@ -31,10 +31,10 @@
     </div>
   </div>
   <div class="row justify-content-end">
-    <a th:href="@{/board/write(board=${board})}" class="col-1 btn btn-primary me-2">수정</a>
-    <a th:href="@{/board/write(board=${board})}" class="col-1 btn btn-danger">삭제</a>
+    <a th:href="@{'/post/' + ${postId} + '/edit'}" class="col-1 btn btn-primary me-2">수정</a>
+    <button class="col-1 btn btn-danger" id="delete-post">삭제</button>
   </div>
 </section>
-<script th:src="@{/js/post-table.js}" src="/js/post-table.js"></script>
+<script th:src="@{/js/post.js}" src="/js/post.js"></script>
 </body>
 </html>

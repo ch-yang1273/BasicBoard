@@ -21,10 +21,27 @@
     </resultMap>
 
     <select id="findById" resultMap="PostResult">
-        SELECT * FROM post WHERE id = #{id}
+        SELECT * FROM post
+        WHERE id = #{id}
+        AND IS_DELETED = false
     </select>
 
     <select id="findAll" resultMap="PostResult">
         SELECT * FROM post
+        WHERE IS_DELETED = false
     </select>
+
+    <update id="edit">
+        UPDATE post
+        SET title = #{title},
+            modified_time = #{modifiedTime}
+        WHERE id = #{id}
+    </update>
+
+    <update id="softDelete">
+        UPDATE post
+        SET IS_DELETED = true,
+            modified_time = #{modifiedTime}
+        WHERE id = #{id}
+    </update>
 </mapper>

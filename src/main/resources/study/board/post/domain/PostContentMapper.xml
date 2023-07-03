@@ -16,4 +16,10 @@
     <select id="findById" resultMap="PostContentResult">
         SELECT * FROM post_content WHERE id = #{id}
     </select>
+
+    <update id="edit" parameterType="study.board.post.domain.EditPostContentDto">
+        UPDATE post_content
+        SET content = #{content}
+        WHERE id = #{id}
+    </update>
 </mapper>

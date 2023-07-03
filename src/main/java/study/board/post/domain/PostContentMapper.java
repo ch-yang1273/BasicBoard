@@ -10,4 +10,6 @@ public interface PostContentMapper {
     void save(PostContent postContent);
 
     Optional<PostContent> findById(Long id);
+
+    void edit(EditPostContentDto dto);
 }

@@ -2,6 +2,7 @@ package study.board.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.account.domain.AccountFinder;
@@ -24,6 +25,7 @@ public class PostService {
     private final PostContentMapper postContentMapper;
 
     private final PostFinder postFinder;
+    private final PostEditor postEditor;
 
     @Transactional
     public void savePost(UserProfile profile, String board, String title, String contents) {
@@ -69,5 +71,21 @@ public class PostService {
 
         PostTitleResp postTitleResp = PostTitleResp.of(post, authorNickname, likeCount);
         return new EntirePostResp(postTitleResp, postContent.getContent());
+    }
+
+    @Transactional(readOnly = true)
+    public void validatePostEditPermission(UserProfile userProfile, Long postId) {
+        Post post = postFinder.findPostById(postId);
+        postEditor.validatePostEditPermission(userProfile.getId(), post.getAuthorId());
+    }
+
+    @Transactional
+    public void editPost(UserProfile userProfile, Long postId, String title, String content) {
+        postEditor.editPost(userProfile.getId(), postId, title, content);
+    }
+
+    @Transactional
+    public void softDelete(UserProfile userProfile, Long postId) {
+        postEditor.softDelete(userProfile.getId(), postId);
     }
 }
