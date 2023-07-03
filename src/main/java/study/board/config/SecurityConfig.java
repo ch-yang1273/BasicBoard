@@ -34,11 +34,20 @@ public class SecurityConfig {
                 // URL 인가 설정
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/signup").permitAll()
+                .antMatchers("/forbidden").permitAll()
                 .antMatchers("/api/v1/account/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
-
+                // AJAX 로그인 인증 필터 추가
                 .addFilterBefore(ajaxLoginProcessingFilter, UsernamePasswordAuthenticationFilter.class)
+                // 인가 에러 처리
+                .exceptionHandling()
+                .accessDeniedPage("/forbidden")
+                .and()
+                // 로그인
+                .formLogin()
+                .loginPage("/login")
+                .and()
                 // 로그아웃
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/logout-proc", "GET"))

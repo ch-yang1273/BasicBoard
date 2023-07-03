@@ -10,4 +10,9 @@ public class HomeController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/forbidden")
+    public String forbidden() {
+        return "error/403forbidden";
+    }
 }

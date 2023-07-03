@@ -18,9 +18,9 @@
   </ul>
 
   <div class="col-md-3 text-end">
-    <a href="/login" class="btn btn-outline-primary me-2">Login</a>
-    <a href="/signup" class="btn btn-primary">Sign-up</a>
-    <a href="/logout" class="btn btn-primary" hidden>Logout</a>
+    <a href="/login" class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()">Login</a>
+    <a href="/signup" class="btn btn-primary" sec:authorize="isAnonymous()">Sign-up</a>
+    <a href="/logout" class="btn btn-outline-primary" sec:authorize="isAuthenticated()">Logout</a>
   </div>
 </header>
 </body>
