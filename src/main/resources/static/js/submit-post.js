@@ -13,7 +13,7 @@ $(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/post/' + board + "/submit",
+            url: '/api/v1/post/submit/' + board,
             contentType: 'application/json',
             data: JSON.stringify({
                 title: title,

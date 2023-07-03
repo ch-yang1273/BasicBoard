@@ -3,14 +3,16 @@ $(function () {
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: '/api/v1/post/' + '${board}',
+            url: '/api/v1/post/list/' + '${board}',
             contentType: 'application/json',
             success: function (data) {
                 const table = $('#boardTable');
                 $.each(data, function (index, item) {
                     const row = $('<tr></tr>');
                     const date = new Date(item.postCreateTime)
-                    row.append('<td class="text-start">' + item.title + '</td>');
+                    const link = '/post/' + item.postId;
+                    const titleLink = '<a href="' + link + '">' + item.title + '</a>';
+                    row.append('<td class="text-start">' + titleLink + '</td>');
                     row.append('<td>' + item.authorName + '</td>');
                     row.append('<td>' + date.toLocaleDateString() + '</td>');
                     row.append('<td>' + item.likeCount + '</td>');

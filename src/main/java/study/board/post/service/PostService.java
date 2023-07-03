@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.account.domain.AccountFinder;
 import study.board.account.dto.UserProfile;
-import study.board.post.domain.Post;
-import study.board.post.domain.PostContent;
-import study.board.post.domain.PostContentMapper;
-import study.board.post.domain.PostMapper;
+import study.board.post.domain.*;
+import study.board.post.dto.EntirePostResp;
 import study.board.post.dto.PostTitleResp;
 
 import java.time.LocalDateTime;
@@ -25,19 +23,7 @@ public class PostService {
     private final PostMapper postMapper;
     private final PostContentMapper postContentMapper;
 
-    @Transactional(readOnly = true)
-    public List<PostTitleResp> getPostList(String boardName) {
-        log.info("getPostList ={}", boardName);
-        List<Post> postList = postMapper.findAll();
-
-        List<PostTitleResp> resultList = new ArrayList<>();
-        for (Post post : postList) {
-            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
-            resultList.add(PostTitleResp.of(post, nickname, 10L));
-        }
-
-        return resultList;
-    }
+    private final PostFinder postFinder;
 
     @Transactional
     public void savePost(UserProfile profile, String board, String title, String contents) {
@@ -58,5 +44,30 @@ public class PostService {
 
         log.info("Save Post. id={}", post.getId());
         log.info("Save PostContent. id={}", postContent.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostTitleResp> getPostList(String boardName) {
+        log.info("getPostList ={}", boardName);
+        List<Post> postList = postFinder.findPostList();
+
+        List<PostTitleResp> resultList = new ArrayList<>();
+        for (Post post : postList) {
+            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
+            resultList.add(PostTitleResp.of(post, nickname, 10L));
+        }
+
+        return resultList;
+    }
+
+    @Transactional
+    public EntirePostResp getEntirePost(Long postId) {
+        Post post = postFinder.findPostById(postId);
+        PostContent postContent = postFinder.findPostContentById(post.getContentId());
+        String authorNickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
+        Long likeCount = 10L;
+
+        PostTitleResp postTitleResp = PostTitleResp.of(post, authorNickname, likeCount);
+        return new EntirePostResp(postTitleResp, postContent.getContent());
     }
 }
