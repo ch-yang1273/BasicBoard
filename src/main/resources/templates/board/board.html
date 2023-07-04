@@ -13,7 +13,10 @@
     <table id="boardTable" class="table text-center">
       <thead class="table-dark">
       <tr>
-        <th scope="col" class="col-6">제목</th>
+        <th scope="col" class="col-1">
+          <i class="fa-solid fa-heart text-danger"></i>
+        </th>
+        <th scope="col" class="col-5">제목</th>
         <th scope="col" class="col-2">작성자</th>
         <th scope="col" class="col-2">작성일</th>
         <th scope="col" class="col-2">좋아요</th>
@@ -27,6 +30,7 @@
     <a th:href="@{/post/write(board=${board})}" class="col-2 btn btn-primary">글쓰기</a>
   </div>
 </section>
+<script src="https://kit.fontawesome.com/fb04c1cf29.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/post-table.js}" src="/js/post-table.js"></script>
 </body>
 </html>
