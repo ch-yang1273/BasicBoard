@@ -19,8 +19,16 @@
       </p>
     </div>
     <div class="col">
-      <p class="text-end text-secondary">
-        좋아요 <span th:text="${post.getPostInfo().getLikeCount()}"></span>
+      <p class="text-end my-auto">
+        <button class="btn" id="like-post" style="background: none; border: none;">
+          <i class="fa-heart text-danger" id="like-img"
+             th:classappend="${post.postInfo.isLike ? 'fa-solid' : 'fa-regular' }" ></i>
+        </button>
+        <span class="align-middle text-secondary" id="like-count" th:text="${post.getPostInfo().getLikeCount()}"></span>
+        <button class="btn" style="background: none; border: none;">
+          <i class="fa-solid fa-user-group"></i>
+        </button>
+        <span class="align-middle text-secondary" th:text="${post.getPostInfo().getLikeCount()}"></span>
       </p>
     </div>
   </div>
@@ -35,6 +43,7 @@
     <button class="col-1 btn btn-danger" id="delete-post">삭제</button>
   </div>
 </section>
+<script src="https://kit.fontawesome.com/fb04c1cf29.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/post.js}" src="/js/post.js"></script>
 </body>
 </html>

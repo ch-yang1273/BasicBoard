@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import study.board.account.dto.UserProfile;
 import study.board.common.authentication.LoginUser;
 import study.board.post.dto.EntirePostResp;
-import study.board.post.dto.PostTitleResp;
+import study.board.post.dto.LikePostReq;
+import study.board.post.domain.PostInfo;
 import study.board.post.dto.SubmitPostReq;
 import study.board.post.service.PostService;
 
@@ -20,8 +21,13 @@ public class PostRestController {
     private final PostService postService;
 
     @GetMapping("/list/{boardName}")
-    public ResponseEntity<List<PostTitleResp>> getPostList(@PathVariable String boardName) {
-        return ResponseEntity.ok().body(postService.getPostList(boardName));
+    public ResponseEntity<List<PostInfo>> getPostList(@LoginUser UserProfile userProfile, @PathVariable String boardName) {
+        return ResponseEntity.ok().body(postService.getPostList(userProfile, boardName));
+    }
+
+    @GetMapping("/info/{postId}")
+    public ResponseEntity<PostInfo> getPostInfo(@LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        return ResponseEntity.ok().body(postService.getPostInfo(userProfile, postId));
     }
 
     @PostMapping("/submit/{boardName}")
@@ -46,8 +52,16 @@ public class PostRestController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/like/{postId}")
+    public ResponseEntity<Void> likePost(@LoginUser UserProfile userProfile,
+                                         @PathVariable Long postId,
+                                         @RequestBody LikePostReq dto) {
+        postService.likePost(userProfile, postId, dto.getLike());
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{postId}")
-    public ResponseEntity<EntirePostResp> getEntirePost(@PathVariable Long postId) {
-        return ResponseEntity.ok().body(postService.getEntirePost(postId));
+    public ResponseEntity<EntirePostResp> getEntirePost(@LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        return ResponseEntity.ok().body(postService.getEntirePost(userProfile, postId));
     }
 }

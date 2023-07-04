@@ -14,5 +14,10 @@ public class PostLike {
     private Long likerId; // Account fk
 
     private LocalDateTime createTime;
-    private LocalDateTime modifiedTime;
+
+    public PostLike(Long postId, Long likerId, LocalDateTime createTime) {
+        this.postId = postId;
+        this.likerId = likerId;
+        this.createTime = createTime;
+    }
 }

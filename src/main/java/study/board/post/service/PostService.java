@@ -10,7 +10,7 @@ import study.board.board.domain.Board;
 import study.board.board.domain.BoardFinder;
 import study.board.post.domain.*;
 import study.board.post.dto.EntirePostResp;
-import study.board.post.dto.PostTitleResp;
+import study.board.post.domain.PostInfo;
 import study.board.post.repository.PostContentMapper;
 import study.board.post.repository.PostMapper;
 
@@ -51,33 +51,37 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostTitleResp> getPostList(String boardName) {
+    public List<PostInfo> getPostList(UserProfile userProfile, String boardName) {
         Board board = boardFinder.findByName(boardName);
         List<Post> postList = postFinder.findListByBoardId(board.getId());
 
-        List<PostTitleResp> resultList = new ArrayList<>();
+        List<PostInfo> resultList = new ArrayList<>();
         for (Post post : postList) {
-            String nickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
-            resultList.add(PostTitleResp.of(post, nickname, 10L));
+            PostInfo postInfo = postFinder.findPostInfoByPostId(post.getId(), userProfile.getId());
+            resultList.add(postInfo);
         }
 
         return resultList;
     }
 
-    @Transactional
-    public EntirePostResp getEntirePost(Long postId) {
-        Post post = postFinder.findPostById(postId);
-        PostContent postContent = postFinder.findPostContentById(post.getContentId());
-        String authorNickname = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
-        Long likeCount = 10L;
+    @Transactional(readOnly = true)
+    public PostInfo getPostInfo(UserProfile userProfile, Long postId) {
+        return postFinder.findPostInfoByPostId(postId, userProfile.getId());
+    }
 
-        PostTitleResp postTitleResp = PostTitleResp.of(post, authorNickname, likeCount);
-        return new EntirePostResp(postTitleResp, postContent.getContent());
+    @Transactional
+    public EntirePostResp getEntirePost(UserProfile userProfile, Long postId) {
+        Post post = postFinder.findPostByPostId(postId);
+
+        PostInfo postInfo = postFinder.findPostInfoByPostId(postId, userProfile.getId());
+        PostContent postContent = postFinder.findPostContentById(post.getContentId());
+
+        return new EntirePostResp(postInfo, postContent.getContent());
     }
 
     @Transactional(readOnly = true)
     public void validatePostEditPermission(UserProfile userProfile, Long postId) {
-        Post post = postFinder.findPostById(postId);
+        Post post = postFinder.findPostByPostId(postId);
         postEditor.validatePostEditPermission(userProfile.getId(), post.getAuthorId());
     }
 
@@ -89,5 +93,14 @@ public class PostService {
     @Transactional
     public void softDelete(UserProfile userProfile, Long postId) {
         postEditor.softDelete(userProfile.getId(), postId);
+    }
+
+    @Transactional
+    public void likePost(UserProfile userProfile, Long postId, String like) {
+        if (like.equals("Y")) {
+            postEditor.likePost(userProfile.getId(), postId);
+        } else {
+            postEditor.unlikePost(userProfile.getId(), postId);
+        }
     }
 }

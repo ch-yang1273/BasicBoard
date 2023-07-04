@@ -2,8 +2,11 @@ package study.board.post.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import study.board.account.domain.AccountFinder;
 import study.board.post.repository.PostContentMapper;
+import study.board.post.repository.PostLikeMapper;
 import study.board.post.repository.PostMapper;
+import study.board.post.repository.SelectPostLikeDto;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,15 +17,14 @@ public class PostFinder {
 
     private final PostMapper postMapper;
     private final PostContentMapper postContentMapper;
+    private final PostLikeMapper postLikeMapper;
 
-    public Post findPostById(Long id) {
-        return postMapper.findById(id).orElseThrow(
-                () -> new NoSuchElementException("Could not find entity with id=" + id)
+    private final AccountFinder accountFinder;
+
+    public Post findPostByPostId(Long postIdd) {
+        return postMapper.findById(postIdd).orElseThrow(
+                () -> new NoSuchElementException("Could not find entity with postIdd=" + postIdd)
         );
-    }
-
-    public List<Post> findAllPostList() {
-        return postMapper.findAll();
     }
 
     public List<Post> findListByBoardId(Long boardId) {
@@ -33,5 +35,23 @@ public class PostFinder {
         return postContentMapper.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Could not find entity with id=" + id)
         );
+    }
+
+    public PostInfo findPostInfoByPostId(Long postId, Long accessorId) {
+        Post post = findPostByPostId(postId);
+        String authorName = accountFinder.findNicknameByIdOrUnknown(post.getAuthorId());
+        Long postLikeCount = getPostLikeCount(postId);
+        Boolean isLiked = isPostLikedByUser(postId, accessorId);
+
+        return PostInfo.of(post, authorName, postLikeCount, isLiked);
+    }
+
+    private Boolean isPostLikedByUser(Long postId, Long likerId) {
+        SelectPostLikeDto dto = new SelectPostLikeDto(postId, likerId);
+        return postLikeMapper.findPostLike(dto).isPresent();
+    }
+
+    private Long getPostLikeCount(Long postId) {
+        return postLikeMapper.countPostLike(postId);
     }
 }

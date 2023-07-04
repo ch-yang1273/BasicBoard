@@ -122,9 +122,8 @@ CREATE TABLE post_like (
     post_id BIGINT,
     liker_id BIGINT,
     create_time TIMESTAMP,
-    modified_time TIMESTAMP
+    UNIQUE (post_id, liker_id)
 );
-
 ```
 
 </details>

@@ -2,15 +2,16 @@ package study.board.post.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.board.post.domain.PostInfo;
 
 @NoArgsConstructor
 @Getter
 public class EntirePostResp {
 
-    PostTitleResp postInfo;
+    PostInfo postInfo;
     String content;
 
-    public EntirePostResp(PostTitleResp postInfo, String content) {
+    public EntirePostResp(PostInfo postInfo, String content) {
         this.postInfo = postInfo;
         this.content = content;
     }

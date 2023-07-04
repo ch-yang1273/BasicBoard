@@ -20,8 +20,8 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/view/{postId}")
-    public String getEntirePost(Model model, @PathVariable Long postId) {
-        EntirePostResp entirePost = postService.getEntirePost(postId);
+    public String getEntirePost(Model model, @LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        EntirePostResp entirePost = postService.getEntirePost(userProfile, postId);
         model.addAttribute("post", entirePost);
         return "/post/post";
     }
@@ -30,7 +30,7 @@ public class PostController {
     public String editPost(Model model, @LoginUser UserProfile userProfile, @PathVariable Long postId) {
         postService.validatePostEditPermission(userProfile, postId);
 
-        EntirePostResp entirePost = postService.getEntirePost(postId);
+        EntirePostResp entirePost = postService.getEntirePost(userProfile, postId);
         model.addAttribute("post", entirePost);
         return "/post/edit-post";
     }
