@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.board.account.domain.AccountFinder;
 import study.board.account.dto.UserProfile;
 import study.board.board.domain.Board;
 import study.board.board.domain.BoardFinder;
@@ -26,7 +25,6 @@ public class PostService {
     private final PostMapper postMapper;
     private final PostContentMapper postContentMapper;
 
-    private final AccountFinder accountFinder;
     private final PostFinder postFinder;
     private final PostEditor postEditor;
     private final BoardFinder boardFinder;
@@ -69,7 +67,7 @@ public class PostService {
         return postFinder.findPostInfoByPostId(postId, userProfile.getId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public EntirePostResp getEntirePost(UserProfile userProfile, Long postId) {
         Post post = postFinder.findPostByPostId(postId);
 
@@ -77,6 +75,11 @@ public class PostService {
         PostContent postContent = postFinder.findPostContentById(post.getContentId());
 
         return new EntirePostResp(postInfo, postContent.getContent());
+    }
+
+    @Transactional
+    public void increasePostViewCount(Long postId) {
+        postEditor.increasePostViewCount(postId);
     }
 
     @Transactional(readOnly = true)

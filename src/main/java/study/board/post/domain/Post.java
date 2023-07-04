@@ -16,13 +16,13 @@ public class Post {
     private Long authorId; // Account fk
     private Long boardId; // Board fk
 
-    private int viewCount;
+    private Long viewCount;
     private boolean isDeleted;
 
     private LocalDateTime createTime;
     private LocalDateTime modifiedTime;
 
-    public Post(Long id, String title, Long contentId, Long authorId, Long boardId, int viewCount,
+    public Post(Long id, String title, Long contentId, Long authorId, Long boardId, Long viewCount,
                 boolean isDeleted, LocalDateTime createTime, LocalDateTime modifiedTime) {
         this.id = id;
         this.title = title;
@@ -42,7 +42,7 @@ public class Post {
         this.contentId = contentId;
         this.authorId = authorId;
         this.boardId = boardId;
-        this.viewCount = 0;
+        this.viewCount = 0L;
         this.isDeleted = false;
         this.createTime = createTime;
         this.modifiedTime = this.createTime;

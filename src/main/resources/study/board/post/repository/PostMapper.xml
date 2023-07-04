@@ -37,7 +37,7 @@
         AND IS_DELETED = false
     </select>
 
-    <update id="edit">
+    <update id="editTitle">
         UPDATE post
         SET title = #{title},
             modified_time = #{modifiedTime}
@@ -49,5 +49,11 @@
         SET IS_DELETED = true,
             modified_time = #{modifiedTime}
         WHERE id = #{id}
+    </update>
+
+    <update id="increaseViewCount">
+        UPDATE POST
+        SET VIEW_COUNT = VIEW_COUNT + 1
+        WHERE ID = #{id}
     </update>
 </mapper>

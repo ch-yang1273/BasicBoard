@@ -29,13 +29,12 @@ public class PostEditor {
         EditPostDto postDto = EditPostDto.builder()
                 .id(postId)
                 .title(title)
-                .viewCount(post.getViewCount())
                 .modifiedTime(LocalDateTime.now())
                 .build();
 
         EditPostContentDto postContentDto = new EditPostContentDto(post.getContentId(), content);
 
-        postMapper.edit(postDto);
+        postMapper.editTitle(postDto);
         postContentMapper.edit(postContentDto);
     }
 
@@ -57,5 +56,9 @@ public class PostEditor {
         Post post = postFinder.findPostByPostId(postId);
         DeletePostLikeDto dto = new DeletePostLikeDto(post.getId(), likerId);
         postLikeMapper.delete(dto);
+    }
+
+    public void increasePostViewCount(Long postId) {
+        postMapper.increaseViewCount(postId);
     }
 }

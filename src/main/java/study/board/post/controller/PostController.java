@@ -21,7 +21,9 @@ public class PostController {
 
     @GetMapping("/view/{postId}")
     public String getEntirePost(Model model, @LoginUser UserProfile userProfile, @PathVariable Long postId) {
+        postService.increasePostViewCount(postId);
         EntirePostResp entirePost = postService.getEntirePost(userProfile, postId);
+
         model.addAttribute("post", entirePost);
         return "/post/post";
     }
