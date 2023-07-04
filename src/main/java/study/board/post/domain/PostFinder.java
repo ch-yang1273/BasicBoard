@@ -2,6 +2,8 @@ package study.board.post.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import study.board.post.repository.PostContentMapper;
+import study.board.post.repository.PostMapper;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -24,7 +26,7 @@ public class PostFinder {
     }
 
     public List<Post> findListByBoardId(Long boardId) {
-        return postMapper.findListByBoardId(new PostSelectByBoardId(boardId));
+        return postMapper.findListByBoardId(boardId);
     }
 
     public PostContent findPostContentById(Long id) {

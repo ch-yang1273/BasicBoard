@@ -11,6 +11,8 @@ import study.board.board.domain.BoardFinder;
 import study.board.post.domain.*;
 import study.board.post.dto.EntirePostResp;
 import study.board.post.dto.PostTitleResp;
+import study.board.post.repository.PostContentMapper;
+import study.board.post.repository.PostMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

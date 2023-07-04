@@ -1,4 +1,4 @@
-package study.board.post.domain;
+package study.board.post.repository;
 
 import lombok.Builder;
 import lombok.Getter;

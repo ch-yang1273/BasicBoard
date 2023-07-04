@@ -11,5 +11,5 @@ public interface BoardMapper {
 
     List<Board> findAll();
 
-    Optional<Board> findByName(BoardSelectByNameDto dto);
+    Optional<Board> findByName(String name);
 }

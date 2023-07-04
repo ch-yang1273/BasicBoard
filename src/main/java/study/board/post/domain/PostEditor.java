@@ -3,10 +3,9 @@ package study.board.post.domain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
+import study.board.post.repository.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component

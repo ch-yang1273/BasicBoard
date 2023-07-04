@@ -1,6 +1,7 @@
-package study.board.post.domain;
+package study.board.post.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import study.board.post.domain.PostContent;
 
 import java.util.Optional;
 

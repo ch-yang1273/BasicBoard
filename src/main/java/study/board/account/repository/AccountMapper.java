@@ -1,6 +1,7 @@
-package study.board.account.domain;
+package study.board.account.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import study.board.account.domain.Account;
 
 import java.util.Optional;
 

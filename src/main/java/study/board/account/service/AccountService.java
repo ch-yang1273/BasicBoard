@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import study.board.account.domain.Account;
 import study.board.account.dto.SignupReq;
-import study.board.account.domain.AccountMapper;
+import study.board.account.repository.AccountMapper;
 
 @RequiredArgsConstructor
 @Service

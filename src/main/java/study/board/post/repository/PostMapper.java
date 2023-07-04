@@ -1,6 +1,7 @@
-package study.board.post.domain;
+package study.board.post.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import study.board.post.domain.Post;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,5 @@ public interface PostMapper {
 
     List<Post> findAll();
 
-    List<Post> findListByBoardId(PostSelectByBoardId dto);
+    List<Post> findListByBoardId(Long boardId);
 }
