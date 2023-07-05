@@ -22,7 +22,15 @@ public class CommentRestController {
     public ResponseEntity<Void> submitComment(@LoginUser UserProfile userProfile,
                               @PathVariable Long postId,
                               @RequestBody SubmitCommentReq dto) {
-        commentService.save(userProfile, postId, dto);
+        commentService.submitComment(userProfile, postId, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/submit/child/{parentCommentId}")
+    public ResponseEntity<Void> submitChildComment(@LoginUser UserProfile userProfile,
+                                                   @PathVariable Long parentCommentId,
+                                                   @RequestBody SubmitCommentReq dto) {
+        commentService.submitChildComment(userProfile, parentCommentId, dto);
         return ResponseEntity.ok().build();
     }
 

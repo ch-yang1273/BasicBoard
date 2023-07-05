@@ -20,4 +20,6 @@ public interface PostMapper {
     List<Post> findListByBoardId(Long boardId);
 
     void increaseViewCount(Long postId);
+
+    boolean existPostWithNotDeleted(Long postId);
 }

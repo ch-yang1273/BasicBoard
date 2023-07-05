@@ -65,6 +65,25 @@
   <div class="row justify-content-end">
     <button class="col-1 btn btn-dark" id="add-comment">등록</button>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="child-comment-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row mt-4 mb-1">
+            <input type="text" class="form-control" id="child-comment-content" placeholder="답글을 입력해주세요">
+            <label for="child-comment-content" class="d-none">답글</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-dark" id="submit-child-comment" data-parent="null">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 <script src="https://kit.fontawesome.com/fb04c1cf29.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/post.js}" src="/js/post.js"></script>

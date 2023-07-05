@@ -39,4 +39,11 @@
         WHERE C.POST_ID = #{postId}
           AND C.IS_DELETED = false
     </select>
+
+    <select id="findByIdAndNotDeleted">
+        SELECT *
+        FROM COMMENT
+        WHERE ID = #{id}
+          AND IS_DELETED = false
+    </select>
 </mapper>

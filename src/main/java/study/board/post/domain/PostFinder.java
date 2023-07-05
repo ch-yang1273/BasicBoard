@@ -21,9 +21,9 @@ public class PostFinder {
 
     private final AccountFinder accountFinder;
 
-    public Post findPostByPostId(Long postIdd) {
-        return postMapper.findById(postIdd).orElseThrow(
-                () -> new NoSuchElementException("Could not find entity with postIdd=" + postIdd)
+    public Post findPostByPostId(Long postId) {
+        return postMapper.findById(postId).orElseThrow(
+                () -> new NoSuchElementException("Could not find entity with postId=" + postId)
         );
     }
 
@@ -53,5 +53,11 @@ public class PostFinder {
 
     private Long getPostLikeCount(Long postId) {
         return postLikeMapper.countPostLike(postId);
+    }
+
+    public void validatePostExistenceAndNotDeleted(Long postId) {
+        if (!postMapper.existPostWithNotDeleted(postId)) {
+            throw new NoSuchElementException("Could not find entity with postIdd=" + postId);
+        }
     }
 }
