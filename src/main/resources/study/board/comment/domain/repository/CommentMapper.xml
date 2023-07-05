@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.board.comment.domain.repository.CommentMapper">
+
+    <resultMap id="CommentResult" type="study.board.comment.domain.Comment">
+        <id property="id" column="ID"/>
+        <result property="content" column="CONTENT"/>
+        <result property="postId" column="POST_ID"/>
+        <result property="authorId" column="AUTHOR_ID"/>
+        <result property="parentCommentId" column="PARENT_COMMENT_ID"/>
+        <result property="isDeleted" column="IS_DELETED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="modifiedTime" column="MODIFIED_TIME"/>
+    </resultMap>
+
+    <insert id="save" parameterType="study.board.comment.domain.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO COMMENT (CONTENT, POST_ID, AUTHOR_ID, PARENT_COMMENT_ID, IS_DELETED, CREATE_TIME, MODIFIED_TIME)
+        VALUES (#{content}, #{postId}, #{authorId}, #{parentCommentId}, #{isDeleted}, #{createTime}, #{modifiedTime})
+    </insert>
+
+    <select id="findListByPostId" parameterType="java.lang.Long" resultMap="CommentResult">
+        SELECT *
+        FROM COMMENT
+        WHERE POST_ID = #{postId}
+          AND IS_DELETED = FALSE
+    </select>
+</mapper>

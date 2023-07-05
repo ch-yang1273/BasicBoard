@@ -42,6 +42,65 @@
     <a th:href="@{'/post/edit/' + ${postId}}" class="col-1 btn btn-primary me-2">수정</a>
     <button class="col-1 btn btn-danger" id="delete-post">삭제</button>
   </div>
+
+  <!-- article-reply -->
+  <div class="row boarder-bottom mt-4">
+    <!-- total count -->
+    <div class="col">
+      <p>
+        댓글 <span id="comment-count" class="text-danger">0</span>
+      </p>
+    </div>
+  </div>
+  <!-- list-reply -->
+  <div class="row">
+    <ul class="list-group" style="padding-right: 0">
+      <li class="list-group-item">
+        <p style="margin-bottom: 0" class="">
+          <span class="align-middle">author</span>
+          <span class="align-middle text-secondary">2023-07-02</span>
+          <button class="btn btn-link" style="text-decoration: none">답글</button>
+        </p>
+        <p class="ms-2">content</p>
+        <ul class="list-group ms-2">
+          <li class="list-group-item">
+            <p>
+              author
+              <span class="text-secondary">2023-07-02</span>
+            </p>
+            <p class="ms-2">reply-reply</p>
+          </li>
+          <li class="list-group-item">
+            <p>
+              author
+              <span class="text-secondary">2023-07-02</span>
+            </p>
+            <p class="mx-2">reply-reply</p>
+          </li>
+        </ul>
+      </li>
+      <li class="list-group-item">
+        <p style="margin-bottom: 0" class="">
+          <span class="align-middle">author</span>
+          <span class="align-middle text-secondary">2023-07-02</span>
+          <button class="btn btn-link" style="text-decoration: none">답글</button>
+        </p>
+        <p class="ms-2">content</p>
+        <ul class="list-group ms-2">
+        </ul>
+      </li>
+      <li class="list-group-item">
+        <p style="margin-bottom: 0" class="">
+          <span class="align-middle">author</span>
+          <span class="align-middle text-secondary">2023-07-02</span>
+          <button class="btn btn-link" style="text-decoration: none">답글</button>
+        </p>
+        <p class="ms-2">content</p>
+        <ul class="list-group ms-2">
+        </ul>
+      </li>
+    </ul>
+  </div>
 </section>
 <script src="https://kit.fontawesome.com/fb04c1cf29.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/post.js}" src="/js/post.js"></script>
