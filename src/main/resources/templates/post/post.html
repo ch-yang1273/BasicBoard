@@ -52,54 +52,18 @@
       </p>
     </div>
   </div>
-  <!-- list-reply -->
+  <!-- comment-list -->
   <div class="row">
-    <ul class="list-group" style="padding-right: 0">
-      <li class="list-group-item">
-        <p style="margin-bottom: 0" class="">
-          <span class="align-middle">author</span>
-          <span class="align-middle text-secondary">2023-07-02</span>
-          <button class="btn btn-link" style="text-decoration: none">답글</button>
-        </p>
-        <p class="ms-2">content</p>
-        <ul class="list-group ms-2">
-          <li class="list-group-item">
-            <p>
-              author
-              <span class="text-secondary">2023-07-02</span>
-            </p>
-            <p class="ms-2">reply-reply</p>
-          </li>
-          <li class="list-group-item">
-            <p>
-              author
-              <span class="text-secondary">2023-07-02</span>
-            </p>
-            <p class="mx-2">reply-reply</p>
-          </li>
-        </ul>
-      </li>
-      <li class="list-group-item">
-        <p style="margin-bottom: 0" class="">
-          <span class="align-middle">author</span>
-          <span class="align-middle text-secondary">2023-07-02</span>
-          <button class="btn btn-link" style="text-decoration: none">답글</button>
-        </p>
-        <p class="ms-2">content</p>
-        <ul class="list-group ms-2">
-        </ul>
-      </li>
-      <li class="list-group-item">
-        <p style="margin-bottom: 0" class="">
-          <span class="align-middle">author</span>
-          <span class="align-middle text-secondary">2023-07-02</span>
-          <button class="btn btn-link" style="text-decoration: none">답글</button>
-        </p>
-        <p class="ms-2">content</p>
-        <ul class="list-group ms-2">
-        </ul>
-      </li>
+    <ul class="list-group" id="comment-list" style="padding-right: 0">
+      <!-- comment list -->
     </ul>
+  </div>
+  <div class="row mt-4 mb-1">
+    <input type="text" class="form-control" id="comment-content" placeholder="내용을 입력해주세요">
+    <label for="comment-content" hidden>답글</label>
+  </div>
+  <div class="row justify-content-end">
+    <button class="col-1 btn btn-dark" id="add-comment">등록</button>
   </div>
 </section>
 <script src="https://kit.fontawesome.com/fb04c1cf29.js" crossorigin="anonymous"></script>

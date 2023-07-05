@@ -1,4 +1,31 @@
-$(function() {
+$(function () {
+
+    $(document).ready(function () {
+        const section = $('section');
+        const postId = section.data('post');
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/comment/list/' + postId,
+            contentType: 'application/json',
+            success: function (data) {
+                data.forEach(function (comment) {
+                    const listItem =
+                        `<li class="list-group-item">
+                  <p class="mb-0">
+                    <span class="align-middle">${comment.authorName}</span>
+                    <span class="align-middle text-secondary">${comment.createTime}</span>
+                    <button class="btn btn-link" style="text-decoration: none">답글+</button>
+                  </p>
+                  <p class="ms-2">${comment.content}</p>
+                  <ul class="list-group ms-2">
+                  </ul>
+                </li>`;
+                    $('#comment-list').append(listItem);
+                });
+            }
+        })
+    })
 
     // submit-post process
     $('#submit-post').click(function () {
@@ -16,7 +43,7 @@ $(function() {
                 title: title,
                 content: content
             })
-        }).done(function() {
+        }).done(function () {
             window.location.href = '/board?board=' + board;
         })
     });
@@ -37,9 +64,9 @@ $(function() {
                 title: title,
                 content: content
             })
-        }).done(function() {
+        }).done(function () {
             window.location.href = '/';
-        }).fail(function() {
+        }).fail(function () {
             window.location.href = '/?error=true';
         })
     });
@@ -53,9 +80,9 @@ $(function() {
             type: 'POST',
             url: '/api/v1/post/delete/' + postId,
             contentType: 'application/json'
-        }).done(function() {
+        }).done(function () {
             window.location.href = '/';
-        }).fail(function() {
+        }).fail(function () {
             window.location.href = '/?error=true';
         })
     });
@@ -64,14 +91,14 @@ $(function() {
         $.ajax({
             type: 'GET',
             url: '/api/v1/post/info/' + postId
-        }).done(function(data) {
+        }).done(function (data) {
             // 성공적으로 PostInfo를 가져온 경우
             $('#like-count').text(data.likeCount);
         });
     }
 
     // like-post process
-    $('#like-post').click(function() {
+    $('#like-post').click(function () {
         const section = $('section');
         const postId = section.data('post');
 
@@ -89,7 +116,7 @@ $(function() {
             data: JSON.stringify({
                 like: likeValue
             })
-        }).always(function() {
+        }).always(function () {
             // 요청 완료 시 아이콘 변경
             if (isLiked) {
                 likeImg.removeClass('fa-solid');
@@ -100,6 +127,24 @@ $(function() {
             }
 
             updateLikeCount(postId);
+        });
+    });
+
+    $('#add-comment').click(function () {
+        const section = $('section');
+        const postId = section.data('post');
+
+        const content = $('#comment-content').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/comment/submit/' + postId,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                content: content
+            })
+        }).always(function () {
+            window.location.href = '/post/view/' + postId;
         });
     });
 });

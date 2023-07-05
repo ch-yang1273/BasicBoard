@@ -26,4 +26,17 @@
         WHERE POST_ID = #{postId}
           AND IS_DELETED = FALSE
     </select>
+
+    <select id="findListCommentAndAuthorNameByPostId"
+            resultType="study.board.comment.domain.repository.CommentAndAuthorNameDto">
+        SELECT C.ID                as id,
+               C.CONTENT           as content,
+               A.NICKNAME          as authorName,
+               C.PARENT_COMMENT_ID as parentCommentId,
+               C.CREATE_TIME       as createTime
+        FROM COMMENT C
+                 LEFT JOIN ACCOUNT A on C.AUTHOR_ID = A.ID
+        WHERE C.POST_ID = #{postId}
+          AND C.IS_DELETED = false
+    </select>
 </mapper>

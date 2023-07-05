@@ -11,4 +11,6 @@ public interface CommentMapper {
     void save(Comment comment);
 
     List<Comment> findListByPostId(Long postId);
+
+    List<CommentAndAuthorNameDto> findListCommentAndAuthorNameByPostId(Long postId);
 }

@@ -1,6 +1,7 @@
 package study.board.comment.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -20,4 +21,26 @@ public class Comment {
 
     private LocalDateTime createTime;
     private LocalDateTime modifiedTime;
+
+    public Comment(Long id, String content, Long postId, Long authorId, Long parentCommentId,
+                   LocalDateTime createTime, LocalDateTime modifiedTime) {
+        this.id = id;
+        this.content = content;
+        this.postId = postId;
+        this.authorId = authorId;
+        this.parentCommentId = parentCommentId;
+        this.isDeleted = false;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+    }
+
+    @Builder
+    public Comment(String content, Long postId, Long authorId, Long parentCommentId, LocalDateTime createTime) {
+        this.content = content;
+        this.postId = postId;
+        this.authorId = authorId;
+        this.parentCommentId = parentCommentId;
+        this.isDeleted = false;
+        this.createTime = createTime;
+    }
 }

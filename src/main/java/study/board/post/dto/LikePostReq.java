@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LikePostReq {
 
-    String like; // Y or N
+    private String like; // Y or N
 }
