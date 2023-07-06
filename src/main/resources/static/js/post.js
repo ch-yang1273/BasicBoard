@@ -24,8 +24,10 @@ $(function () {
             const rootComments = [];
             data.forEach(comment => {
                 if (comment.parentCommentId === null || comment.parentCommentId === 0) {
+                    // 부모가 없는 comment는 rootComment에 추가
                     rootComments.push(comment);
                 } else {
+                    // 그 외에는 부모 comment를 찾아 children으로 추가
                     const parentComment = commentMap.get(comment.parentCommentId);
                     if (parentComment) {
                         parentComment.children.push(comment);
@@ -36,7 +38,7 @@ $(function () {
             // 댓글 하나에 대한 HTML 코드 생성 함수
             function createCommentHTML(comment) {
                 let html =
-                    `
+                `
                 <li class="list-group-item">
                     <p class="mb-0">
                         <span class="align-middle">${comment.authorName}</span>
