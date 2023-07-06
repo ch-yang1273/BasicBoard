@@ -2,7 +2,7 @@ package study.board.post.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.board.post.domain.PostInfo;
+import study.board.post.domain.service.PostInfo;
 
 @NoArgsConstructor
 @Getter

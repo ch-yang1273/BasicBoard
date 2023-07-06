@@ -1,9 +1,11 @@
-package study.board.post.domain;
+package study.board.post.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
-import study.board.post.repository.*;
+import study.board.post.domain.Post;
+import study.board.post.domain.PostLike;
+import study.board.post.domain.repository.*;
 
 import java.time.LocalDateTime;
 

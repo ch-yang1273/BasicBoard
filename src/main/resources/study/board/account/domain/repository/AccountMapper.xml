@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="study.board.account.repository.AccountMapper">
+<mapper namespace="study.board.account.domain.repository.AccountMapper">
     <insert id="save" parameterType="study.board.account.domain.Account" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO account (email, password, nickname, role, create_time, modified_time)
         VALUES (#{email}, #{password}, #{nickname}, #{role}, #{createTime}, #{modifiedTime})

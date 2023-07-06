@@ -1,12 +1,14 @@
-package study.board.post.domain;
+package study.board.post.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import study.board.account.domain.AccountFinder;
-import study.board.post.repository.PostContentMapper;
-import study.board.post.repository.PostLikeMapper;
-import study.board.post.repository.PostMapper;
-import study.board.post.repository.SelectPostLikeDto;
+import study.board.account.domain.service.AccountFinder;
+import study.board.post.domain.Post;
+import study.board.post.domain.PostContent;
+import study.board.post.domain.repository.PostContentMapper;
+import study.board.post.domain.repository.PostLikeMapper;
+import study.board.post.domain.repository.PostMapper;
+import study.board.post.domain.repository.SelectPostLikeDto;
 
 import java.util.List;
 import java.util.NoSuchElementException;

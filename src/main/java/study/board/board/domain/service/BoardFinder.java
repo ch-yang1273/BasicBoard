@@ -1,8 +1,9 @@
-package study.board.board.domain;
+package study.board.board.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import study.board.board.repository.BoardMapper;
+import study.board.board.domain.Board;
+import study.board.board.domain.repository.BoardMapper;
 
 import java.util.NoSuchElementException;
 

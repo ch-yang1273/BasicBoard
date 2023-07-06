@@ -8,7 +8,7 @@ import study.board.comment.domain.repository.CommentAndAuthorNameDto;
 import study.board.comment.domain.repository.CommentMapper;
 import study.board.comment.domain.service.CommentFinder;
 import study.board.comment.dto.SubmitCommentReq;
-import study.board.post.domain.PostFinder;
+import study.board.post.domain.service.PostFinder;
 
 import java.time.LocalDateTime;
 import java.util.List;

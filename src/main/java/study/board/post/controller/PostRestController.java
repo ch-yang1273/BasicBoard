@@ -7,7 +7,7 @@ import study.board.account.dto.UserProfile;
 import study.board.common.authentication.LoginUser;
 import study.board.post.dto.EntirePostResp;
 import study.board.post.dto.LikePostReq;
-import study.board.post.domain.PostInfo;
+import study.board.post.domain.service.PostInfo;
 import study.board.post.dto.SubmitPostReq;
 import study.board.post.service.PostService;
 

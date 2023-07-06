@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="study.board.post.repository.PostContentMapper">
+<mapper namespace="study.board.post.domain.repository.PostContentMapper">
     <insert id="save" parameterType="study.board.post.domain.PostContent" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO post_content (content)
         VALUES (#{content})

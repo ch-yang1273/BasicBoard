@@ -1,9 +1,10 @@
-package study.board.account.domain;
+package study.board.account.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import study.board.account.repository.AccountMapper;
+import study.board.account.domain.Account;
+import study.board.account.domain.repository.AccountMapper;
 
 @RequiredArgsConstructor
 @Component

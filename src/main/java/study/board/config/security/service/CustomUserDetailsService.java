@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import study.board.account.domain.Account;
-import study.board.account.domain.AccountFinder;
+import study.board.account.domain.service.AccountFinder;
 import study.board.config.security.dto.CustomUserDetails;
 
 import java.util.ArrayList;

@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.account.dto.UserProfile;
 import study.board.board.domain.Board;
-import study.board.board.domain.BoardFinder;
+import study.board.board.domain.service.BoardFinder;
 import study.board.post.domain.*;
+import study.board.post.domain.service.PostEditor;
+import study.board.post.domain.service.PostFinder;
 import study.board.post.dto.EntirePostResp;
-import study.board.post.domain.PostInfo;
-import study.board.post.repository.PostContentMapper;
-import study.board.post.repository.PostMapper;
+import study.board.post.domain.service.PostInfo;
+import study.board.post.domain.repository.PostContentMapper;
+import study.board.post.domain.repository.PostMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

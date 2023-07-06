@@ -1,4 +1,4 @@
-package study.board.board.repository;
+package study.board.board.domain.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import study.board.board.domain.Board;
