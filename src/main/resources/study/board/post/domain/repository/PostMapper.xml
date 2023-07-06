@@ -39,7 +39,7 @@
         FROM POST
         WHERE BOARD_ID = #{boardId}
           AND IS_DELETED = false
-        ORDER BY ID ASC
+        ORDER BY ID DESC
     </select>
 
     <update id="editTitle">

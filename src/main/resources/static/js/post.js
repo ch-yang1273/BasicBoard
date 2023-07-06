@@ -10,6 +10,9 @@ $(function () {
             url: '/api/v1/comment/list/' + postId,
             contentType: 'application/json',
         }).done(function (data) {
+            // 총 댓글 개수
+            $('#comment-count').text(data.length);
+
             // 댓글 아이디를 키로, 댓글 데이터를 값으로 하는 맵 생성
             const commentMap = new Map();
             data.forEach(comment => {
