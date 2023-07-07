@@ -126,9 +126,9 @@ Ajax로 comment 리스트를 받은 jQuery가 재귀적인 방식으로 comment�
 
 > 이번 프로젝트에서는 Mybatis를 사용하면서, JPA를 사용했을 때의 패키지 구조와는 다르게 정리했습니다.
 
-JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 때 별도의 Dto를 사용하지 않았고, 관련된 클래스 파일도 많지 않았습니다.
+JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 때는 별도의 Dto를 사용하지 않았고, 관련된 클래스 파일도 많지 않았습니다.
 
-그래서 `repository` 폴더를 따로 구분하지 않고 `domain` 폴더에 두었습니다.
+그래서 `repository` 폴더를 따로 구분하지 않고 `domain` 폴더에 두었었습니다.
 
 <details>
 
@@ -151,10 +151,12 @@ JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 �
 그런데 Mybatis를 사용하니 Mapper를 통해 엔티티를 조회하거나 업데이트 할 때, 조건이나 필드 값을 갖는 `EditPostDto.java`와 같은 `Parameter Object(dto)`들이 많이 필요했습니다.
 그래서 `repository` 폴더로 구분을 해야할 필요성을 느껴 추가하게 되었습니다.
 
-`domain` 폴더 밖으로 `repository` 폴더를 추가하려 했지만, `repository`는 필연적으로 `domain`의 엔티티 클래스를 의존하고 **(repository->domain)**,
-`domain`의 도메인 서비스 클래스들도 `repository`를 의존하니 **(domain->repository)**, <U>패키지 의존성 순환</U>이 발생했습니다.
+처음에는 `domain` 폴더 밖으로 `repository` 폴더를 추가하려 했습니다.
+하지만 `repository`는 필연적으로 `domain`의 엔티티 클래스를 의존하고 **(repository->domain)**,
+`domain`의 도메인 서비스들도 `repository`를 의존하니 **(domain->repository)**, <U>패키지 의존성 순환</U>이 발생했습니다.
 
-그래서 `repository`폴더가 `domain` 폴더 내부로 들어오게 되었지만, 여전히 도메인 서비스 클래스들과 `domain.repository` 폴더 간에 의존성 순환이 남아 있었습니다.
+그래서 도메인 서비스가 도메인 밖으로 나올 수 없으니 `repository`폴더를 `domain` 폴더 내부로 옮겼습니다. 
+하지만 여전히 도메인 서비스 클래스들과 `domain.repository` 폴더 간에 의존성 순환이 남아 있었습니다.
 
 최종적으로 도메인 서비스 클래스들을 `domain.service`로 옮겨 구조적인 의존성 순환을 해결했습니다.
 
@@ -189,7 +191,7 @@ flowchart TB
             UpdateDto.java
             ...
         end
-        subgraph DomainService[service]
+        subgraph DomainService[domain service]
             C[DomainService.java]
         end
     end
@@ -359,82 +361,21 @@ C --> B
 
 ### 2. ERD
 
-<details>
-
-<summary>ERD</summary>
-
-```mermaid
-classDiagram
-    class Account {
-        -Long id
-        -String email
-        -String password
-        -String nickname
-        -AccountRole role
-    }
-
-    class Post {
-        -Long id
-        -String title
-        -Account author
-        -Board board
-        -PostContent content
-        -int viewCount
-        -boolean isDeleted
-    }
-
-    class PostContent {
-        -Long id
-        -String content
-    }
-
-    class Board {
-        -Long id
-        -String name
-    }
-
-    class Comment {
-        -Long id
-        -Post post
-        -Comment parentComment
-        -Account author
-        -String content
-        -boolean isDeleted
-    }
-
-    class PostLike {
-        -Long id
-        -Post post
-        -Account liker
-    }
-
-    Account "1" <-- "0..*" Post
-    Account "1" <-- "0..*" Comment
-    Account "1" <-- "0..*" PostLike
-    Account "1" --> "1" AccountRole
-    Post "1" --> "1" PostContent
-    Post "1" <-- "0..*" Comment
-    Post "1" <-- "0..*" PostLike
-    Post "1" --> "1" Board
-    Comment "1" <-- "0..*" Comment
-```
-
-</details>
+![ERD 이미지](https://user-images.githubusercontent.com/61798028/251731125-ade6bf5e-50ab-432b-a00f-1a2665575594.jpg)
 
 ## 트러블 슈팅 및 후기
 
 ### 트러블 슈팅
 
-1. 좋아요 중복 방지 ([목차 - 좋아요/조회수](###4.3좋아요/조회수))
+1. 좋아요 중복 방지 ([목차 - 좋아요/조회수](#43-좋아요조회수))
    - PostLike 테이블에서 `post_id`와 `post_liker`를 묶어 Unique를 지정하여 "좋아요" 중복을 방지했습니다.
    - 참고 : Velog가 이런 방식으로 중복을 해결했습니다. [Velog - PostLike](https://github.com/velopert/velog-server/blob/614d97b0dd983d8547938506c163e46de8861dbf/src/entity/PostLike.ts#L18)
-2. Mybatis의 Parameter Object 증가 ([목차 - 패키지 구조](###1.패키지 구조))
+2. Mybatis의 Parameter Object 증가 ([목차 - 패키지 구조](#1-패키지-구조))
    - Mybatis를 사용하다보니 JPA와는 달리 쿼리에 따라 Parameter Object 클래스가 늘어나는 경향이 있었습니다. 이를 정리하기 위해 패키지 구조를 조정하였습니다.
-3. `답글+` 동적 버튼 이벤트 처리 ([post.js](src/main/resources/static/js/post.js))
+3. `답글+` 동적 버튼 이벤트 처리 ([/static/js/post.js](src/main/resources/static/js/post.js))
    - 답글 추가 버튼이 동적으로 추가된 요소이다보니, 다른 버튼 이벤트들과 같이 .click() 이벤트가 동작하지 않았습니다.
    - 이벤트 위임 방식을 사용해서 동적 엘리먼트에 대한 이벤트를 처리했습니다.
-   - 참고 : [TOAST - 왜 이벤트 위임(delegation)을 해야 하는가?
-     ](https://ui.toast.com/posts/ko_20160826)
+   - 참고 : [TOAST - 왜 이벤트 위임(delegation)을 해야 하는가?](https://ui.toast.com/posts/ko_20160826)
 
 ### 후기
 
