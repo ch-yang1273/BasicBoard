@@ -40,6 +40,8 @@
 
 ## 4. 상세 구현 내용
 
+<span style="color:red">↓</span> 토글 버튼을 누르면 펼쳐볼 수 있습니다.
+
 <details>
 
 <summary>프로젝트 기능 상세</summary>
@@ -131,8 +133,6 @@ JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 �
 
 그래서 `repository` 폴더를 따로 구분하지 않고 `domain` 폴더에 두었었습니다.
 
-<details>
-
 <summary>JPA - 패키지 구조</summary>
 
 ```
@@ -147,8 +147,6 @@ JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 �
 
 ```
 
-</details>
-
 그런데 Mybatis를 사용하니 Mapper를 통해 엔티티를 조회하거나 업데이트 할 때, 조건이나 필드 값을 갖는 `EditPostDto.java`와 같은 `Parameter Object(dto)`들이 많이 필요했습니다.
 그래서 `repository` 폴더로 구분을 해야할 필요성을 느껴 추가하게 되었습니다.
 
@@ -160,8 +158,6 @@ JPA를 사용해서 테이블의 엔티티를 조회하거나 업데이트 할 �
 하지만 여전히 도메인 서비스 클래스들과 `domain.repository` 폴더 간에 의존성 순환이 남아 있었습니다.
 
 최종적으로 도메인 서비스 클래스들을 `domain.service`로 옮겨 구조적인 의존성 순환을 해결했습니다.
-
-<details>
 
 <summary>Mybatis - 패키지 구조 및 의존성</summary>
 
@@ -213,8 +209,6 @@ service --> dto
 B --> A
 C --> B
 ```
-
-</details>
 
 <details>
 
